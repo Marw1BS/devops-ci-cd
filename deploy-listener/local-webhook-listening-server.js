@@ -31,14 +31,11 @@ app.post('/webhook', (req, res) => {
       execSync('docker compose down');
     } catch {}
 
-    const imageNames = execSync('docker compose config --services')
-      .toString()
-      .trim()
-      .split('\n')
-      .map(service => {
-        const image = execSync(`docker compose config | awk '/${service}:/{flag=1;next}/image:/{if(flag){print $2;flag=0}}'`).toString().trim();
-        return image || null;
-      }).filter(Boolean);
+    // Remplacement de l'utilisation de awk par des noms d'images fixes
+    const imageNames = [
+      'mrwnbnslm/monapp:frontend',
+      'mrwnbnslm/monapp:backend'
+    ];
 
     imageNames.forEach(image => {
       try {
