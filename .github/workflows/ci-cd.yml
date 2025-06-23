@@ -45,7 +45,7 @@ jobs:
           docker build -t monapp:frontend ./frontend
           docker build -t monapp:backend ./backend
 
-    prod-pipeline:
+  prod-pipeline:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
